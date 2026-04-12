@@ -14,5 +14,14 @@
         @csrf
         <button type="submit">Logout</button>
     </form>
+
+    <br>
+    <a href="{{ route('expenses.index') }}">View My Expenses</a>
+    <br>
+    <a href="{{ route('expenses.create') }}">Add New Expense</a>
+
+
 </body>
+
+
 </html>
