@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ExpenseController;
+use App\Http\Controllers\CategoryController;
 
 
 Route::get('/register', [AuthController::class, 'showRegister']);
@@ -15,3 +17,16 @@ Route::post('/logout', [AuthController::class, 'logout']);
 Route::get('/home', function () {
     return view('home');
 })->middleware('auth');
+
+Route::get('/categories', [CategoryController::class, 'index'])->middleware('auth');
+Route::post('/categories', [CategoryController::class, 'store'])->middleware('auth');
+Route::delete('/categories/{category}', [CategoryController::class, 'destroy'])->middleware('auth');
+Route::get('/categories/{category}/edit', [CategoryController::class, 'edit'])->middleware('auth');
+Route::put('/categories/{category}', [CategoryController::class, 'update'])->middleware('auth');
+
+Route::get('/expenses/index', [ExpenseController::class, 'index'])->middleware('auth');
+Route::get('/expenses/create', [ExpenseController::class, 'create'])->middleware('auth');
+Route::post('/expenses', [ExpenseController::class, 'store'])->middleware('auth');
+Route::get('/expenses/{expense}/edit', [ExpenseController::class, 'edit'])->middleware('auth');
+Route::delete('/expenses/{expense}', [ExpenseController::class, 'destroy'])->middleware('auth');
+Route::put('/expenses/{expense}', [ExpenseController::class, 'update'])->middleware('auth');

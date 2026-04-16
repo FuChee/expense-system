@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('category_id')->constrained()->cascadeOnDelete();
             
             $table->decimal('amount', 10, 2); // Handles amounts up to 99,999,999.99
-            $table->string('description');
+            $table->string('description')->nullable();
             $table->date('transaction_date');
             $table->timestamps();
         });

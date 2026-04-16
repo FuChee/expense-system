@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class CategoryController extends Controller
 {
@@ -30,17 +31,15 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
-            'type' => 'required|in:income,expense'
+            'name' => 'required|string|max:255'
         ]);
 
         Category::create([
             'name' => $request->name,
-            'type' => $request->type,
             'user_id' => auth()->id()
         ]);
 
-        return redirect()->route('categories.index');
+        return redirect('/categories');
     }
 
     /**
@@ -56,7 +55,9 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+        Gate::authorize('update', $category);
+
+        return view('categories.edit', compact('category'));
     }
 
     /**
@@ -65,13 +66,12 @@ class CategoryController extends Controller
     public function update(Request $request, Category $category)
     {
         $request->validate([
-            'name' => 'required',
-            'type' => 'required|in:income,expense'
+            'name' => 'required|string|max:255|unique:categories,name,' . $category->id,
         ]);
 
-        $category->update($request->only('name', 'type'));
+        $category->update($request->only('name'));
 
-        return redirect()->route('categories.index');
+        return redirect('/categories')->with('success', 'Category updated successfully.');
     }
 
     /**
@@ -79,7 +79,9 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
+        Gate::authorize('delete', $category);
+
         $category->delete();
-        return redirect()->route('categories.index');
+        return redirect('/categories')->with('success', 'Category deleted!');
     }
 }
