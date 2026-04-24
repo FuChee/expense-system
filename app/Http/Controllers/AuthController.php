@@ -47,7 +47,7 @@ class AuthController extends Controller
 
         if (Auth::attempt($request->only('email', 'password'))) {
             $request->session()->regenerate();
-            session(['last_login_email' => $request->email]);
+            $request->session()->put('user_email', $request->email);
             return redirect('/home');
         }
 

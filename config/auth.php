@@ -71,7 +71,18 @@ return [
         //     'driver' => 'database',
         //     'table' => 'users',
         // ],
+
+            'admin' => [
+                'driver'   => 'session',
+                'provider' => 'admins',
+            ],
+
+            'user' => [
+                'driver'   => 'session',
+                'provider' => 'users',
+            ],
     ],
+
 
     /*
     |--------------------------------------------------------------------------

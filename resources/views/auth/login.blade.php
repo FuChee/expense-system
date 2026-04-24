@@ -10,13 +10,17 @@
     <h2>Welcome Back</h2>
     <div class="subtitle">Login to your account</div>
 
-    @if (session('success'))
+    @if (Session::get('success'))
         <div class="success">
-            {{ session('success') }}
+            {{ Session::get('success') }}
         </div>
     @endif
 
-    <form method="POST" action="/login">
+    @isset($url)
+        <form method="POST" action="{{ url('login/'.$url) }}">
+    @else
+        <form method="POST" action="{{ url('/login') }}">
+    @endisset
         @csrf
         
         <div class="form-group @error('email') error @enderror">

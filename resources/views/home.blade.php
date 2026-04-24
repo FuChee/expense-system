@@ -29,7 +29,7 @@
             <main class="main">
                 <div class="topbar">
                     <h1>Dashboard</h1>
-
+                   
                     <div class="user-dropdown">
                         <div class="user-box" onclick="toggleDropdown()">
                             Welcome, {{ auth()->user()->name }}
@@ -49,13 +49,11 @@
                 </div>
 
                 <div class="welcome-card">
-                    @if(session('last_login_email'))
-                        <p class="last-login">
-                            Last login email: {{ session('last_login_email') }}
-                        </p>
+                    @if(Session::get('user_email'))
+                        <h2>
+                            Welcome {{ Session::get('user_email') }}
+                        </h2>
                     @endif
-
-                    <h2>Hello, {{ auth()->user()->name }}</h2>
                     <p>Manage your expenses, track your categories, and monitor your spending from one place.</p>
 
                     @can('isAdmin')
