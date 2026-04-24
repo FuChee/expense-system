@@ -1,11 +1,13 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ExpenseController;
+use App\Http\Controllers\ProfileController;
 use App\Models\Category;
 use App\Models\Expense;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 
 
 Route::get('/register', [AuthController::class, 'showRegister']);
@@ -38,3 +40,7 @@ Route::post('/expenses', [ExpenseController::class, 'store'])->middleware('auth'
 Route::get('/expenses/{expense}/edit', [ExpenseController::class, 'edit'])->middleware('auth');
 Route::delete('/expenses/{expense}', [ExpenseController::class, 'destroy'])->middleware('auth');
 Route::put('/expenses/{expense}', [ExpenseController::class, 'update'])->middleware('auth');
+
+Route::get('/profile',[ProfileController::class,'index'])->middleware('auth');
+Route::view('/profile/edit', 'profile.edit')->middleware('auth')->name('profile.edit');
+Route::put('/profile', [ProfileController::class, 'update'])->middleware('auth');
