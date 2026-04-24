@@ -6,6 +6,7 @@ use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\CategoryController;
 use App\Models\Category;
 use App\Models\Expense;
+use App\Http\Controllers\UserController;
 
 
 Route::get('/register', [AuthController::class, 'showRegister']);
@@ -38,3 +39,12 @@ Route::post('/expenses', [ExpenseController::class, 'store'])->middleware('auth'
 Route::get('/expenses/{expense}/edit', [ExpenseController::class, 'edit'])->middleware('auth');
 Route::delete('/expenses/{expense}', [ExpenseController::class, 'destroy'])->middleware('auth');
 Route::put('/expenses/{expense}', [ExpenseController::class, 'update'])->middleware('auth');
+
+Route::middleware(['auth', 'can:isAdmin'])->group(function () {
+    Route::get('/users', [UserController::class, 'index']);
+    Route::get('/users/create', [UserController::class, 'create']);
+    Route::post('/users', [UserController::class, 'store']);
+    Route::get('/users/{user}/edit', [UserController::class, 'edit']);
+    Route::put('/users/{user}', [UserController::class, 'update']);
+    Route::delete('/users/{user}', [UserController::class, 'destroy']);
+});
