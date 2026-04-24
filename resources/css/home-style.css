@@ -242,6 +242,12 @@ body {
 .activity-list li:last-child {
     border-bottom: none;
 }
+.last-login {
+    margin-top: 10px;
+    color: #ffffff;
+    font-weight: 500;
+    font-size: 14px;
+}
 
 .admin-panel {
     margin-top: 18px;

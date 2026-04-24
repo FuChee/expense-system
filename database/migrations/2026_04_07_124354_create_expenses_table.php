@@ -13,11 +13,9 @@ return new class extends Migration
     {
         Schema::create('expenses', function (Blueprint $table) {
             $table->id();
-            // Foreign keys linking to users and categories
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->foreignId('category_id')->constrained()->cascadeOnDelete();
-            
-            $table->decimal('amount', 10, 2); // Handles amounts up to 99,999,999.99
+            $table->decimal('amount', 10, 2); 
             $table->string('description')->nullable();
             $table->date('transaction_date');
             $table->timestamps();
