@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -21,20 +19,32 @@
                         @can('isAdmin')
                             <a href="/categories">Categories</a>
                         @endcan
+                        @can('isAdmin')
+                            <a href="/users">View Users</a>
+                        @endcan
                     </div>
                 </div>
-
-                <form method="POST" action="/logout" class="logout-form">
-                    @csrf
-                    <button type="submit">Logout</button>
-                </form>
             </aside>
 
             <main class="main">
                 <div class="topbar">
                     <h1>Dashboard</h1>
-                    <div class="user-box">
-                        Welcome, {{ auth()->user()->name }}
+
+                    <div class="user-dropdown">
+                        <div class="user-box" onclick="toggleDropdown()">
+                            Welcome, {{ auth()->user()->name }}
+                            <span class="dropdown-arrow">▼</span>
+                        </div>
+
+                        <div class="dropdown-menu" id="userDropdown">
+                            <a href="/home" class="dropdown-item">Dashboard</a>
+                            <a href="/expenses/index" class="dropdown-item">Expenses</a>
+                            <a href="/user" class="dropdown-item">Profile</a>
+                            <form method="POST" action="/logout" class="dropdown-form">
+                                @csrf
+                                <button type="submit" class="dropdown-item logout-btn">Logout</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
 
@@ -52,17 +62,17 @@
                 <div class="stats-grid">
                     <div class="card">
                         <div class="stat-title">Total Expenses</div>
-                        <div class="stat-value">RM 0.00</div>
+                        <div class="stat-value">RM {{ $totalExpenses }}</div>
                     </div>
 
                     <div class="card">
                         <div class="stat-title">This Month</div>
-                        <div class="stat-value">RM 0.00</div>
+                        <div class="stat-value">RM {{ $thisMonthExpenses }}</div>
                     </div>
                     @can('isAdmin')
                         <div class="card">
                             <div class="stat-title">Categories</div>
-                            <div class="stat-value">0</div>
+                            <div class="stat-value">{{ $categoryCount }}</div>
                         </div>
                     @endcan
                     <div class="card">
@@ -99,5 +109,19 @@
                 </div>
             </main>
         </div>
+        <script>
+            function toggleDropdown() {
+                document.getElementById("userDropdown").classList.toggle("show");
+            }
+
+            window.onclick = function(event) {
+                if (!event.target.closest('.user-dropdown')) {
+                    const dropdown = document.getElementById("userDropdown");
+                    if (dropdown.classList.contains("show")) {
+                        dropdown.classList.remove("show");
+                    }
+                }
+            }
+        </script>
     </body>
 </html>

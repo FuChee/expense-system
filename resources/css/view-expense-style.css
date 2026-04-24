@@ -18,6 +18,10 @@ body {
     font-size: 14px;
 }
 
+.back:hover {
+    text-decoration: underline;
+}
+
 .header {
     display: flex;
     justify-content: space-between;
@@ -30,12 +34,16 @@ h2 {
 }
 
 .btn-add {
-    background: #16a34a;
+    background: #2563eb;
     color: white;
     padding: 10px 14px;
     text-decoration: none;
     border-radius: 6px;
     font-size: 14px;
+}
+
+.btn-add:hover {
+    background: #1d4ed8;
 }
 
 .success {
@@ -79,21 +87,35 @@ td {
     gap: 8px;
 }
 
-.btn-edit {
-    background: orange;
-    color: white;
-    padding: 5px 10px;
+.btn-edit,
+.btn-delete {
+    display: inline-block;
+    padding: 6px 12px;
     border-radius: 5px;
     text-decoration: none;
+    color: white;
+    font-size: 14px;
+    line-height: 1.2;
+}
+
+.btn-edit {
+    background: #e5e7eb;
+    color: #111827;
+}
+
+.btn-edit:hover {
+    background: #d1d5db;
 }
 
 .btn-delete {
-    background: red;
+    background: #ef4444;
     color: white;
-    padding: 5px 10px;
     border: none;
-    border-radius: 5px;
     cursor: pointer;
+}
+
+.btn-delete:hover {
+    background: #dc2626;
 }
 
 .inline {

@@ -18,24 +18,24 @@ class ExpenseController extends Controller
 
     public function create()
     {
-        $categories = Category::all();
+        $categories = Category::where('user_id', auth()->id())->get();
         return view('expenses.create', compact('categories'));
     }
     
     public function store(Request $request)
     {
         $request->validate([
-            'amount' => 'required|numeric',
+            'amount' => 'required|numeric|min:0',
             'category_id' => 'required|exists:categories,id',
             'date' => 'required|date',
-            'description' => 'nullable|string',
+            'description' => 'nullable|string|max:255',
         ]);
         Expense::create([
+            'user_id' => auth()->id(),
             'amount' => $request->amount,
             'category_id' => $request->category_id,
             'transaction_date' => $request->date,
             'description' => $request->description,
-            'user_id' => auth()->id(),
         ]);
 
         return redirect('/expenses/index')->with('success', 'Expense added successfully!');
@@ -44,7 +44,7 @@ class ExpenseController extends Controller
     public function edit(Expense $expense)
     {
         Gate::authorize('update', $expense);
-        $categories = Category::all();
+        $categories = Category::where('user_id', auth()->id())->get();
         return view('expenses.edit', compact('expense', 'categories'));
     }
 
@@ -70,6 +70,6 @@ class ExpenseController extends Controller
     {
         Gate::authorize('delete', $expense);
         $expense->delete();
-        return redirect('/expenses/index')->with('success', 'Expense deleted!');
+        return redirect('/expenses/index')->with('success', 'Expense deleted successfully!');
     }
 }

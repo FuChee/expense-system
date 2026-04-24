@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\CategoryController;
+use App\Models\Category;
+use App\Models\Expense;
 
 
 Route::get('/register', [AuthController::class, 'showRegister']);
@@ -15,7 +17,13 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout']);
 
 Route::get('/home', function () {
-    return view('home');
+    $categoryCount = Category::where('user_id', auth()->id())->count();
+    $totalExpenses = Expense::where('user_id', Auth::id())->sum('amount');
+    $thisMonthExpenses = Expense::where('user_id', Auth::id())
+        ->whereMonth('transaction_date', now()->month)
+        ->whereYear('transaction_date', now()->year)
+        ->sum('amount');
+    return view('home', compact('categoryCount', 'totalExpenses', 'thisMonthExpenses'));
 })->middleware('auth');
 
 Route::get('/categories', [CategoryController::class, 'index'])->middleware('auth');
