@@ -37,7 +37,7 @@
                         <div class="dropdown-menu" id="userDropdown">
                             <a href="/home" class="dropdown-item">Dashboard</a>
                             <a href="/expenses/index" class="dropdown-item">Expenses</a>
-                            <a href="/user" class="dropdown-item">Profile</a>
+                            <a href="/profile" class="dropdown-item">Profile</a>
                             <form method="POST" action="/logout" class="dropdown-form">
                                 @csrf
                                 <button type="submit" class="dropdown-item logout-btn">Logout</button>

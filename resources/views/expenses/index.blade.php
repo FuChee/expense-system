@@ -24,14 +24,59 @@
                 </div>
             @endif
 
+            <div style="margin-bottom: 10px; font-size: 14px; color: #555;">
+                Sort by: 
+                <strong>
+                    {{ $sort == 'amount' ? 'Amount' : 'Date' }}
+                </strong>
+                ({{ $direction == 'asc' ? 'Ascending ↑' : 'Descending ↓' }})
+
+            </div>
+                <form method="GET" action="/expenses/index" style="margin-bottom: 10px;">
+                    <label>Filter by Category:</label>
+
+                    <select name="category" onchange="this.form.submit()">
+                        <option value="">All</option>
+
+                        @foreach($categories as $cat)
+                            <option value="{{ $cat->id }}" 
+                                {{ request('category') == $cat->id ? 'selected' : '' }}>
+                                {{ $cat->name }}
+                            </option>
+                        @endforeach
+                    </select>
+
+                    <!-- keep sorting -->
+                    <input type="hidden" name="sort" value="{{ $sort }}">
+                    <input type="hidden" name="direction" value="{{ $direction }}">
+                </form>
+
             <div class="card">
                 <table>
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Amount (RM)</th>
+                            <th>
+                                <a href="?sort=amount&direction={{ $sort == 'amount' && $direction == 'asc' ? 'desc' : 'asc' }}" class="sort-link">
+                                    Amount (RM)
+                                    @if($sort == 'amount')
+                                        {{ $direction == 'asc' ? '↑' : '↓' }}
+                                    @else
+                                        ⇅
+                                    @endif
+                                </a>
+                            </th>
                             <th>Category</th>
-                            <th>Date</th>
+                            <th>
+                                <a href="?sort=transaction_date&direction={{ $sort == 'transaction_date' && $direction == 'asc' ? 'desc' : 'asc' }}" class="sort-link">
+                                    Date
+                                    @if($sort == 'transaction_date')
+                                        {{ $direction == 'asc' ? '↑' : '↓' }}
+                                    @else
+                                        ⇅
+                                    @endif
+                                </a>
+                            </th>
                             <th>Description</th>
                             <th>Action</th>
                         </tr>
