@@ -199,7 +199,7 @@ body {
 .action-buttons {
     display: flex;
     flex-wrap: wrap;
-    gap: 12px;
+    gap: 30px;
 }
 
 .btn {
@@ -229,19 +229,6 @@ body {
     background: #dbeafe;
 }
 
-.activity-list {
-    list-style: none;
-}
-
-.activity-list li {
-    padding: 12px 0;
-    border-bottom: 1px solid #e5e7eb;
-    color: #4b5563;
-}
-
-.activity-list li:last-child {
-    border-bottom: none;
-}
 .last-login {
     margin-top: 10px;
     color: #ffffff;

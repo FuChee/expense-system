@@ -1,14 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
-use App\Models\Category;
-use App\Models\Expense;     
+use App\Http\Controllers\HomeController;    
 
 
 Route::get('/register', [AuthController::class, 'showRegister']);
@@ -19,15 +17,7 @@ Route::post('/login', [AuthController::class, 'login']);
 
 Route::post('/logout', [AuthController::class, 'logout']);
 
-Route::get('/home', function () {
-    $categoryCount = Category::where('user_id', auth()->id())->count();
-    $totalExpenses = Expense::where('user_id', Auth::id())->sum('amount');
-    $thisMonthExpenses = Expense::where('user_id', Auth::id())
-        ->whereMonth('transaction_date', now()->month)
-        ->whereYear('transaction_date', now()->year)
-        ->sum('amount');
-    return view('home', compact('categoryCount', 'totalExpenses', 'thisMonthExpenses'));
-})->middleware('auth');
+Route::get('/home', [HomeController::class, 'index'])->middleware('auth');
 
 Route::get('/categories', [CategoryController::class, 'index'])->middleware('auth');
 Route::post('/categories', [CategoryController::class, 'store'])->middleware('auth');

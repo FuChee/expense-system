@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Users</title>
-    @vite(['resources/css/home-style.css'])
+    @vite(['resources/css/view-user-style.css'])
 </head>
 <body>
 <div class="layout">
@@ -23,7 +23,7 @@
     <main class="main">
         <div class="topbar">
             <h1>Users</h1>
-            <a href="/users/create" class="btn">+ Add User</a>
+            <a href="/users/create" class="btn-add">+ Add User</a>
         </div>
 
         <div class="card">
@@ -62,12 +62,12 @@
                     <td>{{ $user->email }}</td>
                     <td>{{ $user->role }}</td>
                     <td>
-                        <a href="/users/{{ $user->id }}/edit" class="btn">Edit</a>
+                        <a href="/users/{{ $user->id }}/edit" class="btn-edit">Edit</a>
 
-                        <form method="POST" action="/users/{{ $user->id }}" onsubmit="return confirm('Are you sure you want to delete this user?');">
+                        <form method="POST" action="/users/{{ $user->id }}" onsubmit="return confirm('Are you sure you want to delete this user?');" class="inline">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn">Delete</button>
+                            <button type="submit" class="btn-delete">Delete</button>
                         </form>
                     </td>
                 </tr>

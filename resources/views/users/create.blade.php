@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Add User</title>
-    @vite(['resources/css/home-style.css'])
+    @vite(['resources/css/add-user-style.css'])
 </head>
 <body>
 <div class="layout">
@@ -23,7 +23,7 @@
     <main class="main">
         <div class="topbar">
             <h1>Add User</h1>
-            <a href="/users" class="btn">Back</a>
+            <a href="/users" class="back">Back to View Users</a>
         </div>
 
         <div class="card">

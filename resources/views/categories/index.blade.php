@@ -11,7 +11,7 @@
             <a href="/home" class="back">Back to Dashboard</a>
             <div class="topbar">
                 <div class="title-group">
-                    <h1>Categories</h1>
+                    <h1>My Categories</h1>
                     <p>Manage your expense categories for better organization.</p>
                 </div>
             </div>

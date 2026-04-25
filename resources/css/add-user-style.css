@@ -1,0 +1,151 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Inter, Arial, sans-serif;
+    background: #f4f7fb;
+    color: #1f2937;
+}
+
+.layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+.sidebar {
+    width: 250px;
+    background: #111827;
+    color: #fff;
+    padding: 24px 18px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.brand {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 32px;
+}
+
+.nav-links a {
+    display: block;
+    text-decoration: none;
+    color: #d1d5db;
+    padding: 12px 14px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    transition: 0.2s ease;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    background: #2563eb;
+    color: #fff;
+}
+
+.main {
+    flex: 1;
+    padding: 28px;
+}
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px
+}
+
+.back {
+    display: inline-block;
+    margin-bottom: 15px;
+    margin-right: 100px;
+    color: #2563eb;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.back:hover {
+    text-decoration: underline;
+}
+
+.card {
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    max-width: 600px;
+}
+
+.card form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.card label {
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: -8px;
+}
+
+.card input,
+.card select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+    transition: 0.2s ease;
+}
+
+.card input:focus,
+.card select:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.error {
+    color: #dc2626;
+    font-size: 13px;
+    margin-top: -10px;
+}
+
+.card .btn {
+    margin-top: 20px;
+    background: #2563eb;
+    color: white;
+    padding: 10px 14px;
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 14px;
+    border-width: 0cap;
+}
+
+.btn:hover {
+    background: #1d4ed8;
+}
+
+@media (max-width: 768px) {
+    .layout {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .topbar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+}
