@@ -27,6 +27,25 @@
         </div>
 
         <div class="card">
+
+            <form method="GET" action="/users" class="filter-form">
+                <input
+                    type="text"
+                    name="search"
+                    placeholder="Search by name or email"
+                    value="{{ request('search') }}"
+                >
+
+                <select name="role">
+                    <option value="">All Roles</option>
+                    <option value="user" {{ request('role') == 'user' ? 'selected' : '' }}>User</option>
+                    <option value="admin" {{ request('role') == 'admin' ? 'selected' : '' }}>Admin</option>
+                </select>
+
+                <button type="submit" class="btn">Search</button>
+                <a href="/users" class="btn">Reset</a>
+            </form>
+
             <table border="1" cellpadding="10" width="100%">
                 <tr>
                     <th>ID</th>
@@ -43,18 +62,18 @@
                     <td>{{ $user->email }}</td>
                     <td>{{ $user->role }}</td>
                     <td>
-                       <a href="/users/{{ $user->id }}/edit" class="btn">Edit</a>
+                        <a href="/users/{{ $user->id }}/edit" class="btn">Edit</a>
 
-<form method="POST" action="/users/{{ $user->id }}" onsubmit="return confirm('Are you sure you want to delete this user?');">
-    @csrf
-    @method('DELETE')
-    <button type="submit" class="btn">Delete</button>
-</form>
+                        <form method="POST" action="/users/{{ $user->id }}" onsubmit="return confirm('Are you sure you want to delete this user?');">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn">Delete</button>
+                        </form>
                     </td>
                 </tr>
                 @endforeach
-
             </table>
+
         </div>
     </main>
 </div>

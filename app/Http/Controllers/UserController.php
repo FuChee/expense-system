@@ -7,12 +7,27 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function index()
-    {
-        $users = User::orderBy('id', 'asc')->get();
+    public function index(Request $request)
+{
+    $query = User::query();
 
-        return view('users.ViewUser', compact('users'));
+    if ($request->filled('search')) {
+        $search = $request->search;
+
+        $query->where(function ($q) use ($search) {
+            $q->where('name', 'like', '%' . $search . '%')
+              ->orWhere('email', 'like', '%' . $search . '%');
+        });
     }
+
+    if ($request->filled('role')) {
+        $query->where('role', $request->role);
+    }
+
+    $users = $query->orderBy('id', 'asc')->get();
+
+    return view('users.ViewUser', compact('users'));
+}
 
     public function create()
     {
