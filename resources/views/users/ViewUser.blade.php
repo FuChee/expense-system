@@ -20,13 +20,6 @@
         </div>
     </aside>
 
-    <main class="main">
-        <div class="topbar">
-            <h1>Users</h1>
-            <a href="/users/create" class="btn">+ Add User</a>
-        </div>
-
-        <div class="card">
 
             <form method="GET" action="/users" class="filter-form">
                 <input

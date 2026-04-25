@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html>
+   
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Home</title>
         @vite(['resources/css/home-style.css'])
     </head>
+
+
+
     <body>
         <div class="layout">
             <aside class="sidebar">
@@ -87,6 +91,20 @@
                     </div>
                 </div>
 
+                                <div class="content-grid">
+                    <div class="card">
+                        <div class="section-title">Monthly Spending - {{ now()->year }}</div>
+                        <canvas id="monthlyChart"></canvas>
+                    </div>
+
+                    <div class="card">
+                        <div class="section-title">Category Spending</div>
+                        <canvas id="categoryChart"></canvas>
+                    </div>
+                </div>
+                
+                <br>
+
                 <div class="content-grid">
                     <div class="card">
                         <div class="section-title">Quick Actions</div>
@@ -129,5 +147,48 @@
                 }
             }
         </script>
+          <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    const monthlyData = @json($monthlyData);
+    const categoryByMonth = @json($categoryByMonth);
+
+    const monthLabels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+    const categoryChart = new Chart(document.getElementById('categoryChart'), {
+        type: 'pie',
+        data: {
+            labels: categoryByMonth[new Date().getMonth() + 1]?.labels ?? [],
+            datasets: [{
+                label: 'Category Spending',
+                data: categoryByMonth[new Date().getMonth() + 1]?.data ?? []
+            }]
+        }
+    });
+
+    new Chart(document.getElementById('monthlyChart'), {
+        type: 'bar',
+        data: {
+            labels: monthLabels,
+            datasets: [{
+                label: 'Monthly Spending',
+                data: monthlyData
+            }]
+        },
+        options: {
+            onClick: function(event, elements) {
+                if (elements.length > 0) {
+                    const index = elements[0].index;
+                    const selectedMonth = index + 1;
+
+                    categoryChart.data.labels = categoryByMonth[selectedMonth]?.labels ?? [];
+                    categoryChart.data.datasets[0].data = categoryByMonth[selectedMonth]?.data ?? [];
+                    categoryChart.data.datasets[0].label = 'Category Spending - ' + monthLabels[index];
+                    categoryChart.update();
+                }
+            }
+        }
+    });
+</script>
     </body>
 </html>

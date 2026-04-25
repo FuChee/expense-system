@@ -19,12 +19,44 @@ Route::post('/logout', [AuthController::class, 'logout']);
 
 Route::get('/home', function () {
     $categoryCount = Category::where('user_id', auth()->id())->count();
+
     $totalExpenses = Expense::where('user_id', Auth::id())->sum('amount');
+
     $thisMonthExpenses = Expense::where('user_id', Auth::id())
         ->whereMonth('transaction_date', now()->month)
         ->whereYear('transaction_date', now()->year)
         ->sum('amount');
-    return view('home', compact('categoryCount', 'totalExpenses', 'thisMonthExpenses'));
+
+    $monthlyData = [];
+    $categoryByMonth = [];
+
+    for ($month = 1; $month <= 12; $month++) {
+        $monthlyData[] = Expense::where('user_id', Auth::id())
+            ->whereMonth('transaction_date', $month)
+            ->whereYear('transaction_date', now()->year)
+            ->sum('amount');
+
+        $categoryExpenses = Expense::where('expenses.user_id', Auth::id())
+            ->join('categories', 'expenses.category_id', '=', 'categories.id')
+            ->whereMonth('expenses.transaction_date', $month)
+            ->whereYear('expenses.transaction_date', now()->year)
+            ->selectRaw('categories.name as category_name, SUM(expenses.amount) as total')
+            ->groupBy('categories.name')
+            ->get();
+
+        $categoryByMonth[$month] = [
+            'labels' => $categoryExpenses->pluck('category_name'),
+            'data' => $categoryExpenses->pluck('total'),
+        ];
+    }
+
+    return view('home', compact(
+        'categoryCount',
+        'totalExpenses',
+        'thisMonthExpenses',
+        'monthlyData',
+        'categoryByMonth'
+    ));
 })->middleware('auth');
 
 Route::get('/categories', [CategoryController::class, 'index'])->middleware('auth');
