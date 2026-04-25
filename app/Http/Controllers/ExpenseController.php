@@ -10,10 +10,29 @@ use Illuminate\Support\Facades\Gate;
 
 class ExpenseController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $expenses = Expense::where('user_id', auth()->id())->get();
-        return view('expenses.index', compact('expenses'));
+        $allowedSorts = ['amount', 'transaction_date'];
+
+        $sort = in_array($request->get('sort'), $allowedSorts)
+            ? $request->get('sort')
+            : 'transaction_date';
+
+        $direction = $request->get('direction') === 'asc' ? 'asc' : 'desc';
+
+        $query = Expense::where('user_id', auth()->id());
+
+        // FILTER
+        if ($request->filled('category')) {
+            $query->where('category_id', $request->category);
+        }
+
+        $expenses = $query->orderBy($sort, $direction)->get();
+
+        // get categories for dropdown
+        $categories = Category::where('user_id', auth()->id())->get();
+
+        return view('expenses.index', compact('expenses', 'sort', 'direction', 'categories'));
     }
 
     public function create()
