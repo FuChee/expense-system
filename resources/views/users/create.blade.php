@@ -11,11 +11,13 @@
             <div class="brand">Expense System</div>
 
             <div class="nav-links">
-                <a href="/home">Dashboard</a>
-                <a href="/expenses/index">Expenses</a>
+                <a href="/home" class="active">Dashboard</a>
+                <a href="/expenses/index">My Expenses</a>
                 <a href="/expenses/create">Add Expense</a>
-                <a href="/categories">Categories</a>
-                <a href="/users" class="active">View Users</a>
+                <a href="/categories">My Categories</a>
+                @can('isAdmin')
+                    <a href="/users">View Users</a>
+                @endcan
             </div>
         </div>
     </aside>
