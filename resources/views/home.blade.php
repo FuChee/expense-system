@@ -16,9 +16,7 @@
                         <a href="/home" class="active">Dashboard</a>
                         <a href="/expenses/index">Expenses</a>
                         <a href="/expenses/create">Add Expense</a>
-                        @can('isAdmin')
-                            <a href="/categories">Categories</a>
-                        @endcan
+                        <a href="/categories">Categories</a>
                         @can('isAdmin')
                             <a href="/users">View Users</a>
                         @endcan
@@ -73,12 +71,10 @@
                         <div class="stat-title">This Month</div>
                         <div class="stat-value">RM {{ $thisMonthExpenses }}</div>
                     </div>
-                    @can('isAdmin')
-                        <div class="card">
-                            <div class="stat-title">Categories</div>
-                            <div class="stat-value">{{ $categoryCount }}</div>
-                        </div>
-                    @endcan
+                    <div class="card">
+                        <div class="stat-title">Categories Added</div>
+                        <div class="stat-value">{{ $categoryCount }}</div>
+                    </div>
                     <div class="card">
                         <div class="stat-title">Transactions</div>
                         <div class="stat-value">0</div>
@@ -91,9 +87,7 @@
                         <div class="action-buttons">
                             <a href="/expenses/create" class="btn btn-primary">+ Add Expense</a>
                             <a href="/expenses/index" class="btn btn-light">View Expenses</a>
-                            @can('isAdmin')
-                                <a href="/categories" class="btn btn-light">Manage Categories</a>
-                            @endcan
+                            <a href="/categories" class="btn btn-light">Manage Categories</a>
                         </div>
                         @can('isAdmin')
                             <div class="admin-panel">

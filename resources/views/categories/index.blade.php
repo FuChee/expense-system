@@ -8,13 +8,12 @@
     </head>
     <body>
         <div class="page">
+            <a href="/home" class="back">Back to Dashboard</a>
             <div class="topbar">
                 <div class="title-group">
                     <h1>Categories</h1>
                     <p>Manage your expense categories for better organization.</p>
                 </div>
-
-                <a href="/home" class="btn btn-light">Back to Dashboard</a>
             </div>
 
             @if(session('success'))

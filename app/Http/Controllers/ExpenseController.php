@@ -18,7 +18,9 @@ class ExpenseController extends Controller
 
     public function create()
     {
-        $categories = Category::where('user_id', auth()->id())->get();
+        $categories = Category::where('user_id', auth()->id())
+                        ->orWhereNull('user_id')
+                        ->get();
         return view('expenses.create', compact('categories'));
     }
     
@@ -44,7 +46,9 @@ class ExpenseController extends Controller
     public function edit(Expense $expense)
     {
         Gate::authorize('update', $expense);
-        $categories = Category::where('user_id', auth()->id())->get();
+        $categories = Category::where('user_id', auth()->id())
+                        ->orWhereNull('user_id')
+                        ->get();
         return view('expenses.edit', compact('expense', 'categories'));
     }
 
