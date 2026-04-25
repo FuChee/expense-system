@@ -10,11 +10,10 @@
     <div class="page">
         <div class="topbar">
             <div class="title-group">
+                <a href="/home" class="back">Back to Dashboard</a>
                 <h1>My Profile</h1>
                 <p>View your account information.</p>
             </div>
-
-            <a href="/home" class="btn btn-light">Back to Dashboard</a>
         </div>
 
         <div class="grid">

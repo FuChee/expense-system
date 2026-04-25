@@ -10,11 +10,10 @@
     <div class="page">
         <div class="topbar">
             <div class="title-group">
+                <a href="/profile" class="back">Back to Profile</a>
                 <h1>Edit Profile</h1>
                 <p>Update your account information.</p>
             </div>
-
-            <a href="/profile" class="btn btn-light">Back to Profile</a>
         </div>
 
         <div class="grid">

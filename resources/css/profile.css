@@ -185,6 +185,18 @@ td {
     padding: 24px 0;
 }
 
+.back {
+    display: inline-block;
+    margin-bottom: 15px;
+    color: #2563eb;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.back:hover {
+    text-decoration: underline;
+}
+
 @media (max-width: 900px) {
     .grid {
         grid-template-columns: 1fr;
