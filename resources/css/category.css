@@ -144,6 +144,23 @@ input[type="text"]:focus {
     font-size: 14px;
 }
 
+.sort-form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.sort-title {
+    margin-top: 7px;
+}
+
+.sort-form select {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+}
+
 .table-wrap {
     overflow-x: auto;
 }

@@ -11,10 +11,26 @@ class CategoryController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $categories = Category::where('user_id', auth()->id())->get();
-        return view('categories.index', compact('categories'));
+        $sort = $request->get('sort', 'date_desc');
+
+        $query = Category::where(function ($query) {
+            $query->where('user_id', auth()->id());
+        });
+        
+        if ($sort === 'name_asc') {
+            $query->orderBy('name', 'asc');
+        } elseif ($sort === 'name_desc') {
+            $query->orderBy('name', 'desc');
+        } elseif ($sort === 'date_asc') {
+            $query->orderBy('created_at', 'asc');
+        } else {
+            $query->orderBy('created_at', 'desc');
+        }
+
+        $categories = $query->get();
+        return view('categories.index', compact('categories', 'sort'));
     }
 
     /**

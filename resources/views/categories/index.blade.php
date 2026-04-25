@@ -51,6 +51,27 @@
                 <!-- Category List -->
                 <div class="card">
                     <h2>Category List</h2>
+                    <form method="GET" action="/categories" class="sort-form">
+                        <label for="sort" class="sort-title">Sort by:</label>
+
+                        <select name="sort" id="sort" onchange="this.form.submit()">
+                            <option value="date_desc" {{ $sort == 'date_desc' ? 'selected' : '' }}>
+                                Newest Date & Time First
+                            </option>
+
+                            <option value="date_asc" {{ $sort == 'date_asc' ? 'selected' : '' }}>
+                                Oldest Date & Time First
+                            </option>
+
+                            <option value="name_asc" {{ $sort == 'name_asc' ? 'selected' : '' }}>
+                                A to Z
+                            </option>
+
+                            <option value="name_desc" {{ $sort == 'name_desc' ? 'selected' : '' }}>
+                                Z to A
+                            </option>
+                        </select>
+                    </form>
 
                     <div class="table-wrap">
                         <table>
