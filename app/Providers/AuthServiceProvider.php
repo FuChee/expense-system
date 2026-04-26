@@ -7,13 +7,10 @@ use Illuminate\Support\Facades\Gate;
 
 class AuthServiceProvider extends ServiceProvider
 {
-    /**
-     * Register services.
-     */
-    public function register(): void
-    {
-        //
-    }
+    protected $policies = [
+        Category::class => CategoryPolicy::class,
+        Expense::class => ExpensePolicy::class,
+    ];
 
     /**
      * Bootstrap services.
