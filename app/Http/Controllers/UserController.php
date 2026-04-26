@@ -8,26 +8,26 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 {
     public function index(Request $request)
-{
-    $query = User::query();
+    {
+        $query = User::query();
 
-    if ($request->filled('search')) {
-        $search = $request->search;
+        if ($request->filled('search')) {
+            $search = $request->search;
 
-        $query->where(function ($q) use ($search) {
-            $q->where('name', 'like', '%' . $search . '%')
-              ->orWhere('email', 'like', '%' . $search . '%');
-        });
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'like', '%' . $search . '%')
+                ->orWhere('email', 'like', '%' . $search . '%');
+            });
+        }
+
+        if ($request->filled('role')) {
+            $query->where('role', $request->role);
+        }
+
+        $users = $query->orderBy('id', 'asc')->get();
+
+        return view('users.ViewUser', compact('users'));
     }
-
-    if ($request->filled('role')) {
-        $query->where('role', $request->role);
-    }
-
-    $users = $query->orderBy('id', 'asc')->get();
-
-    return view('users.ViewUser', compact('users'));
-}
 
     public function create()
     {
@@ -40,7 +40,7 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:6',
-            'role' => 'required|in:user,author,admin',
+            'role' => 'required|in:user,admin',
         ]);
 
         User::create([

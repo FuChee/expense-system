@@ -33,7 +33,7 @@ class AuthController extends Controller
         return redirect('/login')->with('success', 'Account created successfully! Please log in with your credentials.');
     }
 
-        public function showLogin()
+    public function showLogin()
     {
         return view('auth.login');
     }
