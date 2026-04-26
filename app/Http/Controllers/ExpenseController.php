@@ -30,7 +30,9 @@ class ExpenseController extends Controller
         $expenses = $query->orderBy($sort, $direction)->get();
 
         // get categories for dropdown
-        $categories = Category::where('user_id', auth()->id())->get();
+        $categories = Category::where('user_id', auth()->id())
+            ->orWhereNull('user_id')
+            ->get();
 
         return view('expenses.index', compact('expenses', 'sort', 'direction', 'categories'));
     }
